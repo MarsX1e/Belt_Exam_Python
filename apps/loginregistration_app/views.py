@@ -15,7 +15,7 @@ def registration(request):
         for message in error:
             messages.error(request,message)
         return redirect('/main/')
-    User.objects.creation(request.POST)
+    user=User.objects.creation(request.POST)
     request.session['name']=request.POST['name']
     request.session['email']=request.POST['email']
     return redirect('/friends/')

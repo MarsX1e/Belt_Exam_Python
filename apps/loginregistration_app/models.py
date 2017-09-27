@@ -15,14 +15,14 @@ class UserManangement(models.Manager):
                 error['user']=user[0]
         return error
     def creation(self,postData):
-        self.create(
+        user=self.create(
             name=postData['name'],
             alias=postData['alias'],
             email=postData['email'],
             password=bcrypt.hashpw(postData['password'].encode(),bcrypt.gensalt()),
             bday=postData['bday']
         )
-        return self
+        return user
     def validation(self,postData):
         print 'inmodelnow'
         error=[]

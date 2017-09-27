@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id='container'>
+        <p><a href='/logout/'>Logout</a></p>
+        <h1>Hello, {{user.alias}}!</h1>
+        
+        <p>Here is the list of your friends</p>
+        <table>
+            <thead >
+                <tr>
+                    <th style='outline: 2px black solid'>Alias</th>
+                    <th style='outline: 2px black solid'>Action</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                    
+        {%for friend in user.friends.all%}
+        
+                <tr>
+                    <td style='outline: 2px black solid'>{{friend.alias}}</td>
+                    <td style='outline: 2px black solid'><a href='/user/{{friend.id}}/'>View Profile</a>      <a href='/friends/{{friend.id}}/remove/'>Remove as Friend</a></td>
+                </tr>
+        {%endfor%}
+            </tbody>
+        </table>
+        <p>Other Users not on your friend's list:</p>
+        <table>
+                <thead >
+                    <tr>
+                        <th style='outline: 2px black solid'>Alias</th>
+                        <th style='outline: 2px black solid'>Action</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+        {%for person in other_users%}
+                    <tr>    
+                        <form method='post' action='/friends/add/{{person.id}}/'>
+                            {% csrf_token %}
+                            <td style='outline: 2px black solid'><a href='/user/{{person.id}}/'>{{person.alias}}</a></td>
+                            <td style='outline: 2px black solid'><input type='submit' value='Add as Friend'></td>
+                        </form>
+                    </tr>
+        {%endfor%}
+                </tbody>
+        
+    </div>
+</body>
+</html>

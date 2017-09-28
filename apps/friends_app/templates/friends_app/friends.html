@@ -12,24 +12,30 @@
         <h1>Hello, {{user.alias}}!</h1>
         
         <p>Here is the list of your friends</p>
-        <table>
-            <thead >
-                <tr>
-                    <th style='outline: 2px black solid'>Alias</th>
-                    <th style='outline: 2px black solid'>Action</th>
-                    
-                </tr>
-            </thead>
-            <tbody>
-                    
-        {%for friend in user.friends.all%}
+        {%if friends != 0%} 
+            <table>
+                <thead >
+                    <tr>
+                        <th style='outline: 2px black solid'>Alias</th>
+                        <th style='outline: 2px black solid'>Action</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                   
+            {%for friend in user.friends.all%}
+            
+                    <tr>
+                        <td style='outline: 2px black solid'>{{friend.alias}}</td>
+                        <td style='outline: 2px black solid'><a href='/user/{{friend.id}}/'>View Profile</a>      <a href='/friends/{{friend.id}}/remove/'>Remove as Friend</a></td>
+                    </tr>
+            {%endfor%}
         
-                <tr>
-                    <td style='outline: 2px black solid'>{{friend.alias}}</td>
-                    <td style='outline: 2px black solid'><a href='/user/{{friend.id}}/'>View Profile</a>      <a href='/friends/{{friend.id}}/remove/'>Remove as Friend</a></td>
-                </tr>
-        {%endfor%}
             </tbody>
+        
+        {%else%}
+            <p>You don't have friends yet</p>             
+            {%endif%}
         </table>
         <p>Other Users not on your friend's list:</p>
         <table>
